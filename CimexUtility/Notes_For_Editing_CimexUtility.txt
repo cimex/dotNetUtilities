@@ -1,0 +1,5 @@
+﻿/// <summary>
+/// This utility assembly is intended for generic utility functions. 
+/// Please do not place any domain specific functions or any 
+/// I/O operations which do not use inversion of control.
+/// </summary>
