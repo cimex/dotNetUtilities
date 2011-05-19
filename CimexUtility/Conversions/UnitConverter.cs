@@ -39,6 +39,16 @@ namespace CimexUtility.Conversions
 
 
 		/// <summary>
+		/// Converts a Unix timestamp (seconds from 1970) into a DateTime.
+		/// </summary>
+		public static DateTime ConvertFromUtc(this int milliseconds)
+		{
+			var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+			return origin.Add(new TimeSpan(0, 0, 0, 0, milliseconds));
+		}
+
+
+		/// <summary>
 		/// Converts to Unix timestamp (seconds from 1970) form a DateTime.
 		/// </summary>
 		/// <returns>int</returns>
