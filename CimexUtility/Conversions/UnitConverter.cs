@@ -27,48 +27,27 @@ namespace CimexUtility.Conversions
 			return yearsPassed;
 		}
 
-
 		/// <summary>
-		/// Converts a Unix timestamp (seconds from 1970) into a DateTime.
+		/// Converts a Unix timestamp (milliseconds from 1970).
 		/// </summary>
-		public static DateTime ConvertFromUnixTimestamp(this int input)
+		public static DateTime UtcFromUnixTimestamp(this double milliseconds)
 		{
-			var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-			return origin.Add(new TimeSpan(0, 0, input));
-		}
-
-
-		/// <summary>
-		/// Converts a Unix timestamp (seconds from 1970) into a DateTime.
-		/// </summary>
-		public static DateTime ConvertFromUtc(this int milliseconds)
-		{
-			var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-			return origin.Add(new TimeSpan(0, 0, 0, 0, milliseconds));
-		}
-
-
-		/// <summary>
-		/// Converts to Unix timestamp (seconds from 1970) form a DateTime.
-		/// </summary>
-		/// <returns>int</returns>
-		public static int ConvertToUnixTimestampInt(this DateTime input)
-		{
-			var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-			var diff = input.Subtract(origin);
-			return (int)diff.TotalSeconds;
+			var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0).ToUniversalTime();
+			dateTime = dateTime.AddMilliseconds(Math.Round(milliseconds));
+			return dateTime;
 		}
 
 		/// <summary>
-		/// Converts to Unix timestamp (seconds from 1970) form a DateTime.
+		/// Converts to Unix time (milliseconds from 1970).
 		/// </summary>
-		/// <returns>Double</returns>
-		public static double ConvertToUnixTimestamp(this DateTime input)
+		public static double UnixTimeStampFromUtc(this DateTime time)
 		{
-			var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-			var diff = input.Subtract(origin);
-			return Math.Floor(diff.TotalSeconds);
+			var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0).ToUniversalTime();
+			var diff = time.ToUniversalTime().Subtract(origin);
+			return Math.Round(diff.TotalMilliseconds);
 		}
+
+
 
 		/// <summary>
 		/// Encode a UTF8 string to Base64 encoded string.
